@@ -9,13 +9,12 @@ import ch.zli.m223.m223project.Repository.UserRepository;
 public class UserService {
 
     private UserRepository userRepo;
-    
-    public void addTestUser(){
+
+    public void addTestUser() {
         ApplicationUser user = new ApplicationUser();
         user.setUsername("test");
         user.setPassword("test");
         user.setEmail("email");
         user.setRole("user");
-        userRepo.save(user);
     }
 }

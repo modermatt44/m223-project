@@ -12,24 +12,33 @@ import org.springframework.web.bind.annotation.RestController;
 import ch.zli.m223.m223project.Model.ApplicationUser;
 import ch.zli.m223.m223project.Repository.UserRepository;
 import ch.zli.m223.m223project.Service.UserService;
-import jakarta.inject.Inject;
 
-@Controller
-@RequestMapping("/user")
+@RestController
 public class UserController {
-    
+
     @Autowired
     private UserRepository userRepo;
 
-    @Inject
+    @Autowired
     private UserService UserService;
-       
-    @GetMapping
+
+    ApplicationUser user = new ApplicationUser();
+
+    @GetMapping("/new")
+    public ApplicationUser showNewUserForm() {
+        user.setUsername("test");
+        user.setPassword("test");
+        user.setEmail("email");
+        user.setRole("user");
+        userRepo.save(user);
+        return user;
+    }
+
+    @GetMapping("/users")
     public String listAll(Model model) {
-        UserService.addTestUser();
         List<ApplicationUser> listUsers = userRepo.findAll();
         model.addAttribute("listUsers", listUsers);
-           
+
         return "users";
     }
 }
