@@ -1,24 +1,35 @@
 package ch.zli.m223.m223project.Controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ch.zli.m223.m223project.Model.ApplicationUser;
+import ch.zli.m223.m223project.Repository.UserRepository;
+import ch.zli.m223.m223project.Service.UserService;
+import jakarta.inject.Inject;
 
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController {
+    
+    @Autowired
+    private UserRepository userRepo;
+
+    @Inject
+    private UserService UserService;
+       
     @GetMapping
-    public List<ApplicationUser> getAllUsers() {
-
-        ArrayList<ApplicationUser> users = new ArrayList<ApplicationUser>();
-        users.add(new ApplicationUser(1L, "test", "test", "email", "user"));
-        users.add(new ApplicationUser(2L, "test2", "test2", "email2", "user"));
-
-        return users;
+    public String listAll(Model model) {
+        UserService.addTestUser();
+        List<ApplicationUser> listUsers = userRepo.findAll();
+        model.addAttribute("listUsers", listUsers);
+           
+        return "users";
     }
 }
