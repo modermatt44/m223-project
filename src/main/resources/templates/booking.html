@@ -8,7 +8,60 @@
 </head>
 
 <body>
-    <h1>Booking</h1>
+    <form th:action="@{/booking}" th:object="${bookingForm}" method="post">
+        <div>
+            <label for="bookingDate">Booking Date:</label>
+            <input th:field="*{date}" type="date" id="bookingDate" name="bookingDate" required>
+        </div>
+        <div>
+            <label for="bookingTime">Booking Time:</label>
+            <select th:field="*{scope}" id="bookingTime" name="bookingTime" required>
+                <option value="">Select...</option>
+                <option value="morning">Morning (Half Day)</option>
+                <option value="afternoon">Afternoon (Half Day)</option>
+                <option value="full">Full Day</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Add Booking</button>
+        </div>
+    </form>
 </body>
+
+<style>
+    form {
+        max-width: 300px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    form input[type="date"],
+    form select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+    }
+
+    form button {
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+    }
+</style>
 
 </html>

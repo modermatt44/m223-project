@@ -1,5 +1,6 @@
 package ch.zli.m223.m223project.Controller;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -37,8 +38,9 @@ public class UserController {
     @PostMapping("/register")
     public String saveUser(@ModelAttribute("user") ApplicationUser user) {
 
-        userRepo.save(new ApplicationUser(user.getUsername(), passwordEncoder.encode(user.getPassword()),
-                user.getEmail(), user.getRoles()));
+        userRepo.save(
+                new ApplicationUser(user.getPrename(), user.getSurname(), passwordEncoder.encode(user.getPassword()),
+                        user.getUsername(), user.getRoles()));
 
         return "redirect:/login";
     }

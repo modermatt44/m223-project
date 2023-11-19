@@ -18,8 +18,8 @@ public class Booking {
     @Column(nullable = false)
     private LocalDateTime bookingEnd;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = true)
     private ApplicationUser applicationUser;
 
     public Long getId() {
@@ -46,7 +46,7 @@ public class Booking {
         this.bookingEnd = bookingEnd;
     }
 
-    public ApplicationUser getUser() {
+    public Object getUser() {
         return applicationUser;
     }
 

@@ -1,5 +1,7 @@
 package ch.zli.m223.m223project.Model;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -11,24 +13,31 @@ public class ApplicationUser {
     private Long id;
 
     @Column(nullable = false)
-    private String username;
+    private String prename;
+
+    @Column(nullable = false)
+    private String surname;
 
     @Column(nullable = false)
     private String password;
 
     @Column(nullable = true, unique = true)
-    private String email;
+    private String username;
 
     @Column(nullable = true)
     private String roles;
 
+    @OneToMany(mappedBy = "applicationUser")
+    private Set<Booking> bookings;
+
     public ApplicationUser() {
     }
 
-    public ApplicationUser(String username, String password, String email, String roles) {
-        this.username = username;
+    public ApplicationUser(String prename, String surname, String password, String username, String roles) {
+        this.prename = prename;
+        this.surname = surname;
         this.password = password;
-        this.email = email;
+        this.username = username;
         this.roles = roles;
     }
 
@@ -40,12 +49,20 @@ public class ApplicationUser {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getPrename() {
+        return prename;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setPrename(String prename) {
+        this.prename = prename;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getPassword() {
@@ -56,12 +73,12 @@ public class ApplicationUser {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setusername(String username) {
+        this.username = username;
     }
 
     public String getRoles() {
@@ -72,10 +89,18 @@ public class ApplicationUser {
         this.roles = roles;
     }
 
+    public Set<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(Set<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
     @Override
     public String toString() {
-        return "ApplicationUser [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
-                + ", roles=" + roles + "]";
+        return "ApplicationUser [id=" + id + ", prename=" + prename + ", surname=" + surname + ", password=" + password
+                + ", username=" + username + ", roles=" + roles + ", bookings=" + bookings + "]";
     }
 
 }

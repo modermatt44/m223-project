@@ -9,11 +9,14 @@
 
 <body>
     <form th:object="${user}" th:action="@{/register}" method="post">
-        <label for="username">Username:</label>
-        <input th:field="*{username}" type="text" id="username">
+        <label for="prename">Vorname:</label>
+        <input th:field="*{prename}" type="text" id="prename">
 
-        <label for="email">Email:</label>
-        <input th:field="*{email}" type="email" id="email">
+        <label for="surname">Nachname:</label>
+        <input th:field="*{surname}" type="text" id="surname">
+
+        <label for="username">Email:</label>
+        <input th:field="*{username}" type="email" id="username">
 
         <label for="password">Password:</label>
         <input th:field="*{password}" type="password" id="password">
@@ -32,12 +35,10 @@
         font-family: Arial, sans-serif;
         background-color: #f0f0f0;
         padding: 0 10px;
-        /* Add padding to the body to prevent cutting off */
     }
 
     form {
         max-width: 300px;
-        /* Change width to max-width */
         margin: 0 auto;
         background-color: white;
         padding: 20px;
@@ -60,7 +61,6 @@
         border-radius: 5px;
         margin-bottom: 15px;
         box-sizing: border-box;
-        /* Add box-sizing to include padding and border in the element's total width and height */
     }
 
     form button {
@@ -71,7 +71,6 @@
         border-radius: 5px;
         cursor: pointer;
         width: 100%;
-        /* Make the button full width */
     }
 </style>
 

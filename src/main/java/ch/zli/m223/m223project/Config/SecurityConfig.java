@@ -29,6 +29,7 @@ public class SecurityConfig {
 		return http
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers("/register").permitAll()
+						.requestMatchers("/booking").permitAll()
 						.anyRequest().authenticated())
 				.userDetailsService(jpaUserDetailsService)
 				.headers(headers -> headers
