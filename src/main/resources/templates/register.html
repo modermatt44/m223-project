@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewUser</title>
+</head>
+
+<body>
+    <form th:object="${user}" th:action="@{/register}" method="post">
+        <label for="username">Username:</label>
+        <input th:field="*{username}" type="text" id="username">
+
+        <label for="email">Email:</label>
+        <input th:field="*{email}" type="email" id="email">
+
+        <label for="password">Password:</label>
+        <input th:field="*{password}" type="password" id="password">
+
+        <label for="roles">Role:</label>
+        <select th:field="*{roles}" id="roles">
+            <option value="ROLE_USER">USER</option>
+            <option value="ROLE_USER,ROLE_ADMIN">ADMIN</option>
+        </select>
+        <button type="submit">Save</button>
+    </form>
+</body>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        padding: 0 10px;
+        /* Add padding to the body to prevent cutting off */
+    }
+
+    form {
+        max-width: 300px;
+        /* Change width to max-width */
+        margin: 0 auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="password"],
+    form select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+        /* Add box-sizing to include padding and border in the element's total width and height */
+    }
+
+    form button {
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        /* Make the button full width */
+    }
+</style>
+
+</html>

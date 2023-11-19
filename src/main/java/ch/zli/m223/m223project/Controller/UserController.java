@@ -1,46 +1,45 @@
 package ch.zli.m223.m223project.Controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import ch.zli.m223.m223project.Model.ApplicationUser;
 import ch.zli.m223.m223project.Repository.UserRepository;
-import ch.zli.m223.m223project.Service.UserService;
 
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepo;
+    private final UserRepository userRepo;
 
-    ApplicationUser user = new ApplicationUser();
-
-    @GetMapping("/new")
-    public String showNewUserForm(@ModelAttribute("user") ApplicationUser user) {
-        return "newUsers";
+    public UserController(UserRepository userRepo) {
+        this.userRepo = userRepo;
     }
 
-    @PostMapping("/new")
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); // TODO: Change implementation
+
+    // When forwarded show the created user
+    @GetMapping("/register")
+    public String findAll(@ModelAttribute("user") ApplicationUser user) {
+        return "register";
+    }
+
+    // TODO: Fix this endpoint
+    @GetMapping("/register/{id}")
+    public ApplicationUser findById(@PathVariable("id") ApplicationUser user) {
+        return user;
+    }
+
+    @PostMapping("/register")
     public String saveUser(@ModelAttribute("user") ApplicationUser user) {
 
-        userRepo.save(user);
+        userRepo.save(new ApplicationUser(user.getUsername(), passwordEncoder.encode(user.getPassword()),
+                user.getEmail(), user.getRoles()));
 
-        return "redirect:/new";
+        return "redirect:/login";
     }
-
-    // @GetMapping("/users")
-    // public String listAll(Model model) {
-    //     List<ApplicationUser> listUsers = userRepo.findAll();
-    //     model.addAttribute("listUsers", listUsers);
-
-    //     return "users";
-    // }
 }

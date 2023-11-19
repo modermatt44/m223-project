@@ -5,9 +5,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "ApplicationUser")
 public class ApplicationUser {
-    
+
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -20,7 +20,17 @@ public class ApplicationUser {
     private String email;
 
     @Column(nullable = true)
-    private String role;
+    private String roles;
+
+    public ApplicationUser() {
+    }
+
+    public ApplicationUser(String username, String password, String email, String roles) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
+    }
 
     public Long getId() {
         return id;
@@ -54,11 +64,18 @@ public class ApplicationUser {
         this.email = email;
     }
 
-    public String getRole() {
-        return role;
+    public String getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
+
+    @Override
+    public String toString() {
+        return "ApplicationUser [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
+                + ", roles=" + roles + "]";
+    }
+
 }
