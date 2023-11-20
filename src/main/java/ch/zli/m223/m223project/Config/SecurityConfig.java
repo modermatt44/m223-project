@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
@@ -46,13 +47,22 @@ public class SecurityConfig {
 		this.rsaKeys = rsaKeys;
 	}
 
+	private static final String[] AUTH_WHITELIST_SWAGGER = {
+			"/swagger-resources/**",
+			"/swagger-ui/**",
+			"/v2/api-docs",
+			"/webjars/**"
+	};
+
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http
-		.csrf(csrf -> csrf.disable())
+				.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(auth -> auth
-						.requestMatchers("/register").permitAll()
-						.requestMatchers("/booking").permitAll()
+						.antMatchers("/register").permitAll()
+						.antMatchers("/booking").permitAll()
+						.antMatchers("/v2/api-docs").permitAll()
+						.antMatchers(AUTH_WHITELIST_SWAGGER).permitAll()
 						.anyRequest().authenticated())
 				.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
 				.userDetailsService(jpaUserDetailsService)
@@ -61,27 +71,27 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	JwtDecoder jwtDecoder(){
+	JwtDecoder jwtDecoder() {
 		return NimbusJwtDecoder.withPublicKey(rsaKeys.publicKey()).build();
 	}
 
 	@Bean
-	JwtEncoder jwtEncoder(){
-
+	JwtEncoder jwtEncoder() {
 		JWK jwk = new RSAKey.Builder(rsaKeys.publicKey()).privateKey(rsaKeys.privateKey()).build();
 		JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
 		return new NimbusJwtEncoder(jwks);
 	}
 
 	@Bean
-	CorsConfigurationSource corsConfigurationSource() {	
+	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "http://localhost:5050", "https://hoppscotch.io/"));
-		configuration.setAllowedMethods(Arrays.asList("GET","POST", "DELETE", "PUT", "PATCH", "OPTIONS"));
+		configuration.setAllowedOrigins(
+				Arrays.asList("http://localhost:8080", "http://localhost:5050", "https://hoppscotch.io/"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "DELETE", "PUT", "PATCH", "OPTIONS"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
-}	
+	}
 
 	@Bean
 	PasswordEncoder passwordEncoder() {

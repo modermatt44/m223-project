@@ -2,7 +2,7 @@ package ch.zli.m223.m223project.Model;
 
 import java.util.Set;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "ApplicationUser")

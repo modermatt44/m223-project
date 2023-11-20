@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ch.zli.m223.m223project.Model.ApplicationUser;
 import ch.zli.m223.m223project.Repository.UserRepository;
 import jakarta.persistence.EntityManager;
+import javax.persistence.EntityManager;
 
 @Controller
 public class UserController {

@@ -2,7 +2,7 @@ package ch.zli.m223.m223project.Model;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Booking")
