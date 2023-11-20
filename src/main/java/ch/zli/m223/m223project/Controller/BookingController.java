@@ -10,6 +10,7 @@ import java.util.Date;
 
 import org.springframework.cglib.core.Local;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,11 +31,13 @@ public class BookingController implements Serializable {
         this.bookingRepo = bookingRepo;
     }
 
+    @PreAuthorize("permitAll()")
     @GetMapping(value = "/booking")
-    public String getBooking() {
+    public String getBooking(@ModelAttribute("bookingForm") BookingForm bookingForm) {
         return "booking";
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping(value = "/booking")
     public String postBooking(@ModelAttribute("booking") Booking booking,
             @ModelAttribute("bookingForm") BookingForm bookingForm) {
@@ -56,7 +59,7 @@ public class BookingController implements Serializable {
         } else if (bookingForm.getScope().equals("afternoon")) {
             booking.setBookingStart(bookingStartAfternoon);
             booking.setBookingEnd(bookingStartAfternoon.plusHours(5));
-        } else if (bookingForm.getScope().equals("")) {
+        } else if (bookingForm.getScope().equals("full")) {
             booking.setBookingStart(bookingStartMorning);
             booking.setBookingEnd(bookingStartMorning.plusHours(10));
         }

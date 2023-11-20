@@ -5,12 +5,15 @@ import java.util.Set;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import ch.zli.m223.m223project.Config.RsaKeyProperties;
 import ch.zli.m223.m223project.Model.ApplicationUser;
 import ch.zli.m223.m223project.Repository.UserRepository;
 
+@EnableConfigurationProperties(RsaKeyProperties.class)
 @SpringBootApplication
 public class M223ProjectApplication {
 

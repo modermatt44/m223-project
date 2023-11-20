@@ -1,18 +1,21 @@
 package ch.zli.m223.m223project.Model;
 
-import java.sql.Date;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
+import java.util.Date;
 
 public class BookingForm {
 
-    private String date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date date;
     private String scope;
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
