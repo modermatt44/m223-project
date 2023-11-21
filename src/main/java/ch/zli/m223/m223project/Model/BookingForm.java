@@ -6,13 +6,19 @@ public class BookingForm {
 
     private Date date;
     private String scope;
+    private Boolean isApproved;
+    private ApplicationUser applicationUser;
+    private Space space;
 
     public BookingForm() {
     }
 
-    public BookingForm(Date date, String scope) {
+    public BookingForm(Date date, String scope, Boolean isApproBoolean, ApplicationUser applicationUser, Space space) {
         this.date = date;
         this.scope = scope;
+        this.isApproved = isApproBoolean;
+        this.applicationUser = applicationUser;
+        this.space = space;
     }
 
     public Date getDate() {
@@ -31,4 +37,27 @@ public class BookingForm {
         this.scope = scope;
     }
 
+    public ApplicationUser getApplicationUser() {
+        return applicationUser;
+    }
+
+    public void setApplicationUser(ApplicationUser applicationUser) {
+        this.applicationUser = applicationUser;
+    }
+
+    public Space getSpace() {
+        return space;
+    }
+
+    public void setSpace(Space space) {
+        this.space = space;
+    }
+
+    public Boolean getIsApproved() {
+        return isApproved;
+    }
+
+    public void setIsApproved(Boolean isApproved) {
+        this.isApproved = isApproved;
+    }
 }

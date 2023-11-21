@@ -2,6 +2,8 @@ package ch.zli.m223.m223project.Model;
 
 import javax.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "Space")
 public class Space {
@@ -9,15 +11,17 @@ public class Space {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "booking_id", nullable = true)
-    private Booking booking;
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    @OneToMany(mappedBy = "space")
+    private Set<Booking> bookings;
 
     public Space() {
     }
 
-    public Space(Booking booking) {
-        this.booking = booking;
+    public Space(Set<Booking> bookings) {
+        this.bookings = bookings;
     }
 
     public Long getId() {
@@ -28,12 +32,19 @@ public class Space {
         this.id = id;
     }
 
-    public Booking getBooking() {
-        return booking;
+    public Set<Booking> getBookings() {
+        return bookings;
     }
 
-    public void setBooking(Booking booking) {
-        this.booking = booking;
+    public void setBookings(Set<Booking> bookings) {
+        this.bookings = bookings;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

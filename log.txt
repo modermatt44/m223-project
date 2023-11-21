@@ -1,0 +1,84 @@
+commit 1ed227d8b90705faefe9f7a4f74f8fc41b0e92a9
+Author: modermatt44 <marco.odermatt56@gmail.com>
+Date:   Tue Nov 21 01:31:25 2023 +0100
+
+    finished UserEndpoints almost finished BookingEndpoints
+    
+    also added Space Model
+    added UserStories
+
+commit a71ba8059ed5368423f2b7d5838a332f3af85fd3
+Author: modermatt44 <marco.odermatt56@gmail.com>
+Date:   Mon Nov 20 23:16:36 2023 +0100
+
+    added Swagger and migrated spring boot version from 3 to 2.7
+
+commit b7a124d15df398d9d83b11fad462e41d2f3a9fd1
+Author: modermatt44 <marco.odermatt56@gmail.com>
+Date:   Mon Nov 20 21:31:39 2023 +0100
+
+    added some diagrams and created a README file
+
+commit af9174b3eaedc42c753543a33fd0fcf097f20343
+Author: Marco <marco.odermatt56@gmail.com>
+Date:   Mon Nov 20 18:10:49 2023 +0100
+
+    added booking controller and started with implementation of jwt authentication
+
+commit d6897e6e3588e766165a574bc3e713a38481fb7f
+Author: modermatt44 <marco.odermatt56@gmail.com>
+Date:   Mon Nov 20 00:26:34 2023 +0100
+
+    started with bookings
+
+commit 6709f6024ff0c35d1e04deca9fb7184b56e4a0ad
+Author: modermatt44 <marco.odermatt56@gmail.com>
+Date:   Sun Nov 19 16:19:17 2023 +0100
+
+    added login and registration functionality
+    
+    added some endpoints with a required authority
+    changed .devcontainer extensions
+    removed org.springframework.boot:spring-boot-starter-security
+
+commit 0a5a2b356e9c80a498f710ceb4e94b455f990061
+Author: Marco <marco.odermatt56@gmail.com>
+Date:   Thu Nov 16 10:46:41 2023 +0000
+
+    fixed user creation into database
+
+commit 319f6cbf5918dfc175f5ae2baa1a342ea207151e
+Author: Marco <marco.odermatt56@gmail.com>
+Date:   Thu Nov 16 09:26:03 2023 +0000
+
+    added POST endpoint for new user, mad role obeject of ApplicationUser Class nullabl nullable, created newUsate
+
+commit 032f4d33c10c76bf67dd4853810908aa30900cd0
+Author: modermatt44 <marco.odermatt56@gmail.com>
+Date:   Wed Nov 15 23:28:02 2023 +0100
+
+    worked on userController
+
+commit 692df362d1d6a8983bdb025544c60b757eb2f82f
+Author: Marco <marco.odermatt56@gmail.com>
+Date:   Wed Nov 15 21:19:24 2023 +0000
+
+    added UserService, UserRepository, thymelef
+
+commit 02401f0dd7f615c7150b01d9e6e9a8b98bbc07a5
+Author: Marco <marco.odermatt56@gmail.com>
+Date:   Wed Nov 15 15:27:24 2023 +0100
+
+    added User modeland Controller, devcontainer and changed application.properties
+
+commit 77267ccc1c1c2a4cf07bf7d22ea203a1332fcca0
+Author: Marco <marco.odermatt56@gmail.com>
+Date:   Wed Nov 15 11:39:06 2023 +0100
+
+    added personas and initalized spring-boot project
+
+commit abcd3ae22c33e35367834dc9db88c3d5e49d2c17
+Author: Marco Odermatt <90383218+modermatt44@users.noreply.github.com>
+Date:   Wed Nov 15 10:37:43 2023 +0100
+
+    Initial commit

@@ -15,6 +15,4 @@ public interface UserRepository extends CrudRepository<ApplicationUser, Long> {
     Optional<ApplicationUser> findById(Long id);
 
     List<ApplicationUser> findAll();
-
-    void deleteById(Long id);
 }

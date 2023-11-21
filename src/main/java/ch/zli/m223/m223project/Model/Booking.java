@@ -5,6 +5,11 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "Booking")
 public class Booking {
@@ -23,11 +28,26 @@ public class Booking {
     private Boolean isApproved;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = true)
+    @Fetch(FetchMode.JOIN)
+    @JsonIgnoreProperties("bookings")
     private ApplicationUser applicationUser;
 
-    @OneToMany
-    private Set<Space> space;
+    @ManyToOne
+    @Fetch(FetchMode.JOIN)
+    @JsonIgnoreProperties("bookings")
+    private Space space;
+
+    public Booking() {
+    }
+
+    public Booking(LocalDateTime bookingStart, LocalDateTime bookingEnd, Boolean isApproved,
+            ApplicationUser applicationUser, Space space) {
+        this.bookingStart = bookingStart;
+        this.bookingEnd = bookingEnd;
+        this.isApproved = isApproved;
+        this.applicationUser = applicationUser;
+        this.space = space;
+    } 
 
     public Long getId() {
         return id;
@@ -53,14 +73,6 @@ public class Booking {
         this.bookingEnd = bookingEnd;
     }
 
-    public Object getUser() {
-        return applicationUser;
-    }
-
-    public void setUser(ApplicationUser applicationUser) {
-        this.applicationUser = applicationUser;
-    }
-
     public Boolean getIsApproved() {
         return isApproved;
     }
@@ -68,5 +80,23 @@ public class Booking {
     public void setIsApproved(Boolean isApproved) {
         this.isApproved = isApproved;
     }
+
+    public ApplicationUser getApplicationUser() {
+        return applicationUser;
+    }
+
+    public void setApplicationUser(ApplicationUser applicationUser) {
+        this.applicationUser = applicationUser;
+    }
+
+    public Space getSpace() {
+        return space;
+    }
+
+    public void setSpace(Space space) {
+        this.space = space;
+    }
+
+    
 
 }
