@@ -56,7 +56,6 @@ public class UserController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/admin/users", name = "getAllUsers")
-    @ResponseStatus(code = HttpStatus.OK, reason = "Users found!")
     public List<ApplicationUser> manageUsers() {
         try {
             return userRepo.findAll();
@@ -68,7 +67,6 @@ public class UserController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/admin/users/{id}", name = "getUserById")
-    @ResponseStatus(code = HttpStatus.FOUND, reason = "User found!")
     public Optional<ApplicationUser> findUserById(@PathVariable("id") Long id) {
         Optional<ApplicationUser> user = userRepo.findById(id);
         if (user.isPresent()) {

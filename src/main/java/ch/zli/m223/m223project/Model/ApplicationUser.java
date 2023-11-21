@@ -4,6 +4,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "ApplicationUser")
 public class ApplicationUser {
@@ -28,6 +31,7 @@ public class ApplicationUser {
     private String roles;
 
     @OneToMany(mappedBy = "applicationUser")
+    @JsonIgnoreProperties("applicationUser")
     private Set<Booking> bookings;
 
     public ApplicationUser() {

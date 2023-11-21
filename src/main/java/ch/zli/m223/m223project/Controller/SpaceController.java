@@ -29,7 +29,6 @@ public class SpaceController {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(value = "/spaces", name = "getAllSpaces")
-    @ResponseStatus(code = HttpStatus.OK, reason = "Spaces found!")
     public List<Space> getSpaces() {
         try{
             return spaceRepo.findAll();

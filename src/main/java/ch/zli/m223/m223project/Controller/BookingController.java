@@ -46,7 +46,7 @@ public class BookingController implements Serializable {
         
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping(value = "/bookings/{id}", consumes = "application/json", name = "updateBookingById")
     @ResponseStatus(code = HttpStatus.OK, reason = "Booking updated successfully!")
     public String approveBooking(@PathVariable("id") Long id, @RequestBody BookingForm bookingForm) {
