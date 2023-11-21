@@ -1,17 +1,13 @@
 package ch.zli.m223.m223project.Config;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -61,7 +57,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests(auth -> auth
 						.antMatchers("/register").permitAll()
 						.antMatchers("/booking").permitAll()
-						.antMatchers("/v2/api-docs").permitAll()
+						.antMatchers("/token").permitAll()
 						.antMatchers(AUTH_WHITELIST_SWAGGER).permitAll()
 						.anyRequest().authenticated())
 				.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)

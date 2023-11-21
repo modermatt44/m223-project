@@ -6,23 +6,23 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
-import org.springframework.cglib.core.Local;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import ch.zli.m223.m223project.Model.Booking;
 import ch.zli.m223.m223project.Model.BookingForm;
 import ch.zli.m223.m223project.Repository.BookingRepository;
 
-@Controller
+@RestController
 public class BookingController implements Serializable {
 
     private final BookingRepository bookingRepo;
@@ -31,16 +31,30 @@ public class BookingController implements Serializable {
         this.bookingRepo = bookingRepo;
     }
 
-    @PreAuthorize("permitAll()")
-    @GetMapping(value = "/booking")
-    public String getBooking(@ModelAttribute("bookingForm") BookingForm bookingForm) {
-        return "booking";
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping(value = "/bookings", name = "getAllBookings")
+    public List<Booking> getBookings() {
+        return bookingRepo.findAll();
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping(value = "/bookings/{id}", consumes = "application/json", name = "updateBooking")
+    public String approveBooking(@PathVariable("id") Long id, Booking booking, @RequestBody Boolean approval) {
+        Optional<Booking> bookingData = bookingRepo.findById(id);
+
+        if (bookingData.isPresent()) {
+            Booking _booking = bookingData.get();
+            _booking.setIsApproved(approval);
+            bookingRepo.save(_booking);
+            return "Booking updated successfully!";
+        } else {
+            return "Booking not found!";
+        }
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
-    @PostMapping(value = "/booking")
-    public String postBooking(@ModelAttribute("booking") Booking booking,
-            @ModelAttribute("bookingForm") BookingForm bookingForm) {
+    @PostMapping(value = "/booking", consumes = "application/json", produces = "application/json", name = "createBooking")
+    public Booking createBooking(@RequestBody BookingForm bookingForm, Booking booking) {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -64,8 +78,17 @@ public class BookingController implements Serializable {
             booking.setBookingEnd(bookingStartMorning.plusHours(10));
         }
 
+        booking.setIsApproved(false);
+
         bookingRepo.save(booking);
 
-        return "redirect:/booking";
+        return booking;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping(value = "/bookings/{id}", name = "deleteBookingById")
+    public String deleteBookingById(@PathVariable("id") Long id) {
+        bookingRepo.deleteById(id);
+        return "Deleted booking with id: " + id;
     }
 }

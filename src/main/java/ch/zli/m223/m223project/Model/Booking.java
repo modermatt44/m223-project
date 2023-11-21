@@ -1,6 +1,7 @@
 package ch.zli.m223.m223project.Model;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -18,9 +19,15 @@ public class Booking {
     @Column(nullable = false)
     private LocalDateTime bookingEnd;
 
+    @Column(nullable = false)
+    private Boolean isApproved;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true)
     private ApplicationUser applicationUser;
+
+    @OneToMany
+    private Set<Space> space;
 
     public Long getId() {
         return id;
@@ -53,4 +60,13 @@ public class Booking {
     public void setUser(ApplicationUser applicationUser) {
         this.applicationUser = applicationUser;
     }
+
+    public Boolean getIsApproved() {
+        return isApproved;
+    }
+
+    public void setIsApproved(Boolean isApproved) {
+        this.isApproved = isApproved;
+    }
+
 }
